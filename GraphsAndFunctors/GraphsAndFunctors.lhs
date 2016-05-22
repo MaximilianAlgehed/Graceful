@@ -5,9 +5,10 @@ Say we are interested in the relationships between the
 types $a$ and $b$ in the below graph.
 
 \usetikzlibrary{graphs}
+\usetikzlibrary{arrows}
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[->, nd/.style={draw, circle, node distance=2cm, minimum width=2em}]
+\begin{tikzpicture}[->, thick, auto, nd/.style={draw, circle, node distance=2cm, minimum width=2em}]
     \node[nd] (a) {\Large{$a$}};
     \node[nd, right of=a] (b) {\Large{$b$}};
     \path (a) edge[bend left=45] node [above] {\Large{$\phi_0$}} (b);
@@ -17,7 +18,7 @@ types $a$ and $b$ in the below graph.
 
 Where $\phi_0$ and $\phi_1$ have the types
 $\phi_0 :: a \rightarrow F_0\ a$ and $\phi_1 :: a \rightarrow F_1\ a$,
-for some functors $F_0$ and $F_1$.
+for some endofunctors $F_0$ and $F_1$.
 
 From this we can compute the types for $a$ and $b$
 
@@ -50,23 +51,13 @@ $\llparenthesis \bar{a}\circ (F_0\ \bar{b}) \rrparenthesis :: \mu (F_0\circ F_1)
 
 $\llparenthesis \bar{b}\circ (F_1\ \bar{a}) \rrparenthesis :: \mu (F_1\circ F_0) \rightarrow X$
 
-Taking a step back we observe that the type of $\phi_0$ and $\phi_1$
-
-$\phi_0 :: \mu (F_1 \circ F_0) -> F_0 (\mu (F_1 \circ F_0))$
-
-$\phi_1 :: \mu (F_0 \circ F_1) -> F_1 (\mu (F_0 \circ F_1))$
-
-Which of course is
+Taking a step back we observe the types of $\phi_0$ and $\phi_1$:
 
 $\phi_0 :: \mu (F_1 \circ F_0) -> \mu (F_0 \circ F_1)$
 
 $\phi_1 :: \mu (F_0 \circ F_1) -> \mu (F_1 \circ F_0)$
 
-Which finally means that
-
-$\phi_0 \circ \phi_1 \circ \phi_0...$
-
-is well typed!
+Which means that $\phi_0 \circ \phi_1 \circ \phi_0...$ is well typed!
 
 Haskell Implementation
 ======================
