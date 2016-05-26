@@ -67,6 +67,8 @@ lists and binary probability trees.
 
 We need a type for composition at the functor level
 
+> module GraphsAndFunctors where
+
 > data Compose f g a = C (f (g a))
 
 Of course it's a functor
