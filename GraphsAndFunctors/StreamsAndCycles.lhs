@@ -26,14 +26,18 @@ $\phi_2 :: b \rightarrow F_2\ b$
 
 From which we obtain the system of equations:
 
-$a = F_0\ a$
+$a = F_0\ a \times F_2\ b$
 
 $b = F_1\ a$
 
-$a = F_2\ b$
-
 Which gives
 
-$a = \mu(F_0 \circ F_2 \circ F_1)$
+$a = F_0\ a \times (F_2 \circ F_1) a$
 
-$b = F_1\ \mu(F_0\circ F_2 \circ F_1)$
+$b = F_1\ a$
+
+In conclusion
+
+$a = \mu F_a\ where\ F_a\ y = F_0\ y \times (F_2 \circ F_1)\ y$
+
+$b = F_1\ \mu F_a$
