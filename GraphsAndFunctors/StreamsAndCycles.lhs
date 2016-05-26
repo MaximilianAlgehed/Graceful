@@ -41,3 +41,26 @@ In conclusion
 $a = \mu F_a\ where\ F_a\ y = F_0\ y \times (F_2 \circ F_1)\ y$
 
 $b = F_1\ \mu F_a$
+
+Let's try to construct a catamorphism, to escape the fixpoint, from these types to our favourite type,
+$X$.
+
+$\bar{a_0} :: F_0 X \rightarrow X$
+
+$\bar{a_2} :: F_2 X \rightarrow X$
+
+$\bar{b_1} :: F_1 X \rightarrow X$
+
+$\bar{bi} :: X \times X \rightarrow X$
+
+$\bar{a_2} \circ F_2\ \bar{b_1} :: (F_2 \circ F_1)\ X \rightarrow X$
+
+$\bar{bi} \circ \langle \bar{a_0},\ \bar{a_2} \circ F_2\ \bar{b_1} \rangle :: F_a\ X \rightarrow X$
+
+Finally we can construct our catamorphism
+
+$\llparenthesis \bar{bi} \circ \langle \bar{a_0},\ \bar{a_2} \circ F_2\ \bar{b_1} \rangle \rrparenthesis :: \mu F_a \rightarrow X$
+
+Given which
+
+$F_1\ \llparenthesis \bar{bi} \circ \langle \bar{a_0},\ \bar{a_2} \circ F_2\ \bar{b_1} \rangle \rrparenthesis :: F_1\ \mu F_a \rightarrow X$
