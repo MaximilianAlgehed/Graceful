@@ -57,7 +57,7 @@ $\phi_0 :: \mu (F_1 \circ F_0) -> \mu (F_0 \circ F_1)$
 
 $\phi_1 :: \mu (F_0 \circ F_1) -> \mu (F_1 \circ F_0)$
 
-Which means that $\phi_0 \circ \phi_1 \circ \phi_0...$ is well typed!
+Which means that $\phi_0 \circ \phi_1 \circ \phi_0...$ is well typed.
 
 Haskell Implementation
 ======================
@@ -72,7 +72,7 @@ We need a type for composition at the functor level
 Of course it's a functor
 
 > instance (Functor f, Functor g) => Functor (Compose f g) where
->     fmap f (C a) = C $ (fmap . fmap) f a
+>     fmap f (C a) = C $ (fmap fmap fmap) f a
 
 We can construct an algebra from composition of two functors by
 composition of two algebras
@@ -86,9 +86,9 @@ And we need to define fixpoints
 
 Using our list functor F0
 
-> newtype F0 a = F0 [a]
+> data F0 a = F0 [a]
 > instance Functor F0 where
->     fmap f (F0 xs) = F0 (fmap f xs)
+>     fmap f (F0 xs) = F0 $ fmap f xs
 
 and our tree functor F1
 
