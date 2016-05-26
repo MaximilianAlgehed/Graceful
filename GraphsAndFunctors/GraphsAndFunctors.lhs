@@ -57,7 +57,7 @@ $\phi_0 :: \mu (F_1 \circ F_0) -> \mu (F_0 \circ F_1)$
 
 $\phi_1 :: \mu (F_0 \circ F_1) -> \mu (F_1 \circ F_0)$
 
-Which means that $\phi_0 \circ \phi_1 \circ \phi_0...$ is well typed.
+Which means that $...\phi_0 \circ \phi_1 \circ \phi_0...$ is well typed.
 
 Haskell Implementation
 ======================

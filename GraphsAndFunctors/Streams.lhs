@@ -13,7 +13,7 @@ Say we wanted to define a counting node in a graph like
 \end{tikzpicture}
 \end{figure}
 
-Where $\phi :: a \rightarrow F_0\ a$ and $\phi$.
+Where $\phi :: a \rightarrow F_0\ a$.
 We can determine the type for $a$ to be $a = F_0\ a \implies a = \mu F_0$.
 
 In order to give this structure some meaning we can define $F_0\ a = (X \times a)$
@@ -22,7 +22,7 @@ for some $X$. Note that $\mu F_0$ is now a stream of $Xs$.
 To give a simple example assume that $X = int$ and $\phi (x, a) = (x+1, (x, a))$,
 the meaning of the node $a$ is now clear, it is a counting node.
 
-An algebra for this node would be $getCount :: (Int, Int) \leftarrow Int$ where $getCount = outl$.
+An algebra for this node could be $getCount :: (Int, Int) \leftarrow Int$ where $getCount = outl$.
 
 Haskell Implementation
 ======================
