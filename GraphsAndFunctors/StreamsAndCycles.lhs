@@ -61,6 +61,6 @@ Finally we can construct our catamorphism
 
 $\llparenthesis \bar{bi} \circ \langle \bar{a_0},\ \bar{a_2} \circ F_2\ \bar{b_1} \rangle \rrparenthesis :: \mu F_a \rightarrow X$
 
-Given which
+given which
 
 $F_1\ \llparenthesis \bar{bi} \circ \langle \bar{a_0},\ \bar{a_2} \circ F_2\ \bar{b_1} \rangle \rrparenthesis :: F_1\ \mu F_a \rightarrow X$
