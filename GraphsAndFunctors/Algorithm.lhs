@@ -1,3 +1,24 @@
+Formal grammar for functor calculus
+===================================
+
+A grammar for our coalgebra graphs
+
+\begin{grammar}
+<var> ::= $v_0$ | $v_1$ | ...
+
+<functor> ::= $F_0$ | $F_1$ | ...
+
+<no hole> ::= <var>
+\alt $\mu$ <hole>
+\alt <hole> <no hole>
+\alt <no hole> $\times$ <no hole>
+
+<hole> ::= $\lambda$<var> $\rightarrow$ <no hole>
+\alt <functor>
+
+<equation> ::= <var> $=$ <no hole>
+\end{grammar}
+
 An algorithm for inference
 ==========================
 
@@ -53,28 +74,36 @@ in a right hand side
 >            | otherwise                  = singleton x
 >        freeVariables' xs (Abs x rhs)    = freeVariables' (x:xs) rhs
 >        freeVariables' xs (Mu rhs)       = freeVariables' xs rhs
->        freeVariables' xs (App rhs rhs') = union (freeVariables' xs rhs) (freeVariables' xs rhs')
->        freeVariables' xs (Prd rhs rhs') = union (freeVariables' xs rhs) (freeVariables' xs rhs')
+>        freeVariables' xs (App rhs rhs') = union
+>                                               (freeVariables' xs rhs)
+>                                               (freeVariables' xs rhs')
+>        freeVariables' xs (Prd rhs rhs') = union
+>                                               (freeVariables' xs rhs)
+>                                               (freeVariables' xs rhs')
 >        freeVariables' xs _              = empty
 
-> replace :: Var -> Rhs No -> Var -> Rhs No
+We need a function to replace all occurances of a variable
+with it's definition.
+\texttt{replace} has the following invariant:
+The variable name to be replaced is not to be
+used as a variable name in an abstraction.
+
+> replace :: Var -> Rhs No -> Rhs No -> Rhs No
 > replace w (Var x) y
->    | w == x                = Var y
+>    | w == x                = y 
 >    | otherwise             = Var x
 > replace w (Mu rhs) y       = Mu $ replace' w rhs y
-
 > replace w (App rhs rhs') y = App (replace' w rhs y) (replace w rhs' y)
 > replace w (Prd rhs rhs') y = Prd (replace w rhs y) (replace w rhs' y)
 
-> replace' :: Var -> Rhs Yes -> Var -> Rhs Yes
-> replace' w (Abs x rhs) y
->    | w == x                = Abs y $ replace w rhs y
->    | otherwise             = Abs x $ replace w rhs y
+> replace' :: Var -> Rhs Yes -> Rhs No -> Rhs Yes
+> replace' w (Abs x rhs) y = Abs x $ replace w rhs y
 > replace' w r y  = r
 
 > fixify :: Equation -> Equation
 > fixify (Eqn v rhs)
->    | v `elem` freeVariables rhs = Eqn v $ Mu $ Abs freshVar $ replace v rhs freshVar
+>    | v `elem` freeVariables rhs =
+>       Eqn v $ Mu $ Abs freshVar $ replace v rhs (Var freshVar)
 >    | otherwise = Eqn v rhs
 >        where
 >            freshVar = firstNonElem ((L.sort . toList) (freeVariables rhs))
