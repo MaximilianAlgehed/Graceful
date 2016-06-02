@@ -8,7 +8,10 @@ import Test.QuickCheck
 -- The sat solver is correct if each model it produces for a
 -- wff is actually a model
 sat_correct :: WFF -> Bool
-sat_correct wff = all id [test wff sol | sol <- sat $ toSat wff]
+sat_correct wff = all id xs
+    where 
+        ys = sat $ toSat wff
+        xs = [test wff sol | sol <- ys]
 
 -- Check that the unassigned variables left-biased-unioned with the solution
 -- are correct for every possible assignment of variables

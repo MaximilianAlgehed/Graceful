@@ -9,9 +9,7 @@ import Data.List hiding (lookup, union)
 import Prelude hiding (lookup)
 import Control.Applicative hiding (empty)
 
-data WFF = Truth
-         | Falsehood
-         | Var String
+data WFF = Var String
          | And WFF WFF
          | Or WFF WFF
          | Not WFF
@@ -19,8 +17,6 @@ data WFF = Truth
          | Eqv WFF WFF deriving (Data)
 
 instance Show WFF where
-    show Truth = "True"
-    show Falsehood = "False"
     show (Var s) = s
     show (And x y) = "("++(show x) ++ " && "++(show y)++")"
     show (Or x y)  ="("++(show x) ++ " || "++(show y)++")"
@@ -31,12 +27,10 @@ instance Show WFF where
 instance Arbitrary WFF where
     arbitrary = sized myArbitrary
         where
-            myArbitrary 0 = oneof [{-return Truth, return Falsehood,-} do
-                                                                     s <- oneof (map (return . show) [1..30])
-                                                                     return (Var s)]
-            myArbitrary n = oneof [ --return Truth,
-                                    --return Falsehood,
-                                    binary n And,
+            myArbitrary 0 = do
+                                s <- oneof (map (return . show) [1..30])
+                                return (Var s)
+            myArbitrary n = oneof [ binary n And,
                                     binary n Or,
                                     binary n Impl,
                                     binary n Eqv,
@@ -57,8 +51,6 @@ t .&& t' = And t t'
 t .|| t' = Or t t'
 t ==> t' = Impl t t'
 t <=> t' = Eqv t t'
-true = Truth
-false = Falsehood
 n t = Not t
 v s = Var s
 
@@ -68,8 +60,6 @@ fromJust (Just x) = x
 fromJust _        = undefined
 
 eval :: M.Map String Bool -> WFF -> Bool
-eval _ Truth     = True
-eval _ Falsehood = False
 eval m (Var s)   = fromJust $ M.lookup s m
 eval m (And x y) = (&&) (eval m x) (eval m y)
 eval m (Or x y)  = (||) (eval m x) (eval m y)

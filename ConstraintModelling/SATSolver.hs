@@ -25,7 +25,7 @@ vars = concat
 type Solution = [Var]
 
 solve :: WFF -> [Solution]
-solve = sat . toSat
+solve = sat . nub . (map sort) . toSat
 
 sat :: CNF -> [Solution]
 sat = nub . (map sort) . sat'
@@ -50,8 +50,6 @@ eliminate v cnf = fiddle v cnf
 toSat :: WFF -> CNF
 toSat wff = map nub $ (mkSat . (perform_rewrite [implFree, unNot, deMorgan, equivFree, distribute])) wff
     where
-        mkSat Truth = []
-        mkSat Falsehood = []
         mkSat (Var s) = [[V s]]
         mkSat (Or f g) = [concat $ (mkSat f) ++ (mkSat g)]
         mkSat (And f g) = (mkSat f) ++ (mkSat g)
