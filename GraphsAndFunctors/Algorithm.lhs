@@ -112,3 +112,11 @@ used as a variable name in an abstraction.
 >            firstNonElem (x:y:xs)
 >                | x+1 < y = x+1
 >                | otherwise = firstNonElem (y:xs)
+
+> replaceWithDefinitions :: [Equation] -> [Equation]
+> replaceWithDefinitions eqns = L.map execReplace eqns
+>     where
+>         execReplace eqn = L.foldl rep eqn eqns
+>         rep (Eqn v rhs) (Eqn v' rhs')
+>             | v == v'   = Eqn v rhs
+>             | otherwise = Eqn v (replace v' rhs rhs')
