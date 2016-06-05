@@ -3,6 +3,7 @@ Formal grammar for functor calculus
 
 A grammar for our coalgebra graphs
 
+\subsection{Coalgebra grammar}
 \begin{grammar}
 <var> ::= $v_0$ | $v_1$ | ...
 
@@ -12,12 +13,54 @@ A grammar for our coalgebra graphs
 \alt $\mu$ <hole>
 \alt <hole> <no hole>
 \alt <no hole> $\times$ <no hole>
+\alt <no hole>[<var>/<var>]
 
 <hole> ::= $\lambda$<var> $\rightarrow$ <no hole>
 \alt <functor>
+\alt <hole>[<var>/<var>]
 
 <equation> ::= <var> $=$ <no hole>
 \end{grammar}
+
+\subsection{Semantic rules of the coalgebra grammar}
+
+\inference[LamRem]
+{
+e : <no\ hole>\\
+v : <var>\\
+a : <var>\\
+(\lambda a \rightarrow e)\ v
+}
+{e[a/v]}
+
+\quad
+
+\inference[VarRep(0)]
+{
+x:<var>\\
+x[x/y]\\
+}
+{y}
+
+\quad
+
+\inference[VarRep(1)]
+{
+x:<hole>\\
+(\mu\ x)[a/b]
+}
+{\mu\ (x[a/b])}
+
+\subsection{Some theorems}
+
+\begin{betaeq} \textbf{Beta equivalence lemma}\\
+If $e$ is a term in our grammar and $a$ is a variable, then\\
+$a = e \implies a\ = (\lambda \bar{a}\rightarrow e[a/\bar{a}])\ a$
+\end{betaeq}
+
+\begin{proof}
+Follows directly from \textit{LamRem} and \textit{VarRep(*)}
+\end{proof}
 
 An algorithm for inference
 ==========================
