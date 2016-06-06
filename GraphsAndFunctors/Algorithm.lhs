@@ -13,11 +13,11 @@ A grammar for our coalgebra graphs
 \alt $\mu$ <hole>
 \alt <hole> <no hole>
 \alt <no hole> $\times$ <no hole>
-\alt <no hole>[<var>/<var>]
+\alt <no hole>[<var>/<no hole>]
 
 <hole> ::= $\lambda$<var> $\rightarrow$ <no hole>
 \alt <functor>
-\alt <hole>[<var>/<var>]
+\alt <hole>[<var>/<no hole>]
 
 <equation> ::= <var> $=$ <no hole>
 \end{grammar}
@@ -50,6 +50,37 @@ x\ :\ <hole>\\
 }
 {\mu\ (x[a/b])}
 
+\quad
+
+\inference[VarRep(3)]
+{
+x,\ y\ :\ <hole>\\
+(x\times y)[a/b]
+}
+{(x[a/b])\times (y[a/b])}
+
+\quad
+
+\inference[EqnSubs]
+{
+v,\ w\ :\ <var>\\
+e,\ f\ :\ <no hole>\\
+v = e\\
+w = f\\
+}
+{v = e[w/f]}
+
+\quad
+
+\inference[FixIntro]
+{
+v\ :\ <var>\\
+f\ :\ <hole>\\
+e\ :\ \{<equation>\}\\
+e \Rightarrow v = fixpoint(f)\\
+}
+{v = \mu f}
+
 \subsection{Some theorems}
 
 \begin{lemma} \textbf{Beta equivalence lemma}\\
@@ -65,6 +96,10 @@ Follows directly from \textit{LamRem} and \textit{VarRep(*)}
 if $e$ is a term in our grammar and $a$ is a variable, then\\
 $a = e \implies a = \mu (\lambda \bar{a}\rightarrow e[a/\bar{a}])$
 \end{lemma}
+
+\begin{proof}
+
+\end{proof}
 
 An algorithm for inference
 ==========================
