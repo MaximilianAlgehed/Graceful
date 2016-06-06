@@ -26,9 +26,8 @@ A grammar for our coalgebra graphs
 
 \inference[LamRem]
 {
-e : <no\ hole>\\
-v : <var>\\
-a : <var>\\
+e\ :\ <no\ hole>\\
+v,\ a : <var>\\
 (\lambda a \rightarrow e)\ v
 }
 {e[a/v]}
@@ -37,7 +36,7 @@ a : <var>\\
 
 \inference[VarRep(0)]
 {
-x:<var>\\
+x\ :\ <var>\\
 x[x/y]\\
 }
 {y}
@@ -46,21 +45,26 @@ x[x/y]\\
 
 \inference[VarRep(1)]
 {
-x:<hole>\\
+x\ :\ <hole>\\
 (\mu\ x)[a/b]
 }
 {\mu\ (x[a/b])}
 
 \subsection{Some theorems}
 
-\begin{betaeq} \textbf{Beta equivalence lemma}\\
+\begin{lemma} \textbf{Beta equivalence lemma}\\
 If $e$ is a term in our grammar and $a$ is a variable, then\\
 $a = e \implies a\ = (\lambda \bar{a}\rightarrow e[a/\bar{a}])\ a$
-\end{betaeq}
+\end{lemma}
 
 \begin{proof}
 Follows directly from \textit{LamRem} and \textit{VarRep(*)}
 \end{proof}
+
+\begin{lemma} \textbf{Fixpoint substitution lemma}\\
+if $e$ is a term in our grammar and $a$ is a variable, then\\
+$a = e \implies a = \mu (\lambda \bar{a}\rightarrow e[a/\bar{a}])$
+\end{lemma}
 
 An algorithm for inference
 ==========================
