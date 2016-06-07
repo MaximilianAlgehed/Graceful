@@ -7,11 +7,11 @@ Suppose we have the following diagram
 \usetikzlibrary{arrows}
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[->, thick, auto, nd/.style={draw, circle, node distance=2cm, minimum width=2em}]
+\begin{tikzpicture}[->, thick, auto, nd/.style={draw, circle, node distance=5cm, minimum width=2em}]
     \node[nd] (a) {\Large{$a\ X$}};
     \node[nd, right of=a] (b) {\Large{$b\ X$}};
-    \path (a) edge[bend left=45] node [above] {\Large{$a^\prime\ \phi_0$}} (b);
-    \path (b) edge[bend left=45] node [below] {\Large{$b^\prime\ \phi_1$}} (a);
+    \path (a) edge[bend left=45] node [above] {\Large{$inl\circ (a^\prime\ \phi_0)$}} (b);
+    \path (b) edge[bend left=45] node [below] {\Large{$inl\circ (b^\prime\ \phi_1)$}} (a);
 \end{tikzpicture}
 \end{figure}
 
