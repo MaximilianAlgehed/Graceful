@@ -27,7 +27,7 @@ We arrive at
 
 $b\ X = a^\prime\ (F_0\ X)$
 
-$a\ X = b^\prime\ (F_1\ (a^\prime\ (F_0\ X)))$
+$a\ X = b^\prime\ (F_1\ x)$
 
 Haskell Implementation
 ======================
@@ -40,9 +40,9 @@ Haskell Implementation
 >     fmap f (Id x)    = Id (f x)
 >     fmap f (Prime x) = Prime (fmap f x)
 
-> data B x = B {unB :: (Prime A (F0 x))} deriving (Show, Functor)
+> data B x = B (Prime A (F0 x)) deriving (Show, Functor)
 
-> data A x = A {unA :: (Prime B (F1 (Prime A (F0 x))))} deriving (Show, Functor)
+> data A x = A (Prime B (F1 x)) deriving (Show, Functor)
 
 We need some example functors
 
@@ -61,9 +61,16 @@ And some example coalgebras
 > phi1 :: X -> F1 X
 > phi1 x = F1 [(x+1)/2, x, (x-1)*2]
 
-And finally, initial conditions
+The simples value of type A x
 
-> initial :: B X
-> initial = B (Id (F0 [0.0]))
+> simpleA :: F1 X -> A X
+> simpleA = A . Id 
 
-This is a mess.
+> simpleB :: F0 X -> B X
+> simpleB = B . Id
+
+> applyB :: (X -> F1 X) -> B X -> A X
+> applyB f x = A $ Prime $ fmap f x
+
+> applyA :: (X -> F0 X) -> A X -> B X
+> applyA f x = B $ Prime $ fmap f x
