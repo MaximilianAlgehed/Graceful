@@ -29,6 +29,12 @@ $b\ X = a^\prime\ (F_0\ X)$
 
 $a\ X = b^\prime\ (F_1\ x)$
 
+Having constructed values using our coalgebras
+$\phi_0$ and $\phi_1$, we would like to get back
+to $X$ using some algebras $\rho_0$ and $\rho_1$.
+
+The way we do this is by magic...
+
 Haskell Implementation
 ======================
 
@@ -74,3 +80,22 @@ The simples value of type A x
 
 > applyA :: (X -> F0 X) -> A X -> B X
 > applyA f x = B $ Prime $ fmap f x
+
+We also need algebras
+
+> rho0 :: F0 X -> X
+> rho0 (F0 xs) = minimum xs
+
+> rho1 :: F1 X -> X
+> rho1 (F1 xs) = maximum xs
+
+And we need a way to reduce the node values to values of interest.
+I *think* these are catamorphisms but I am really not sure.
+
+> reduceB :: B X -> (F0 X -> X, F1 X -> X) -> X
+> reduceB (B (Id x)) (f, _)      = f x
+> reduceB (B (Prime a)) p@(f, _) = reduceA (fmap f a) p
+
+> reduceA :: A X -> (F0 X -> X, F1 X -> X) -> X
+> reduceA (A (Id x)) (_, f)      = f x
+> reduceA (A (Prime b)) p@(_, f) = reduceB (fmap f b) p
