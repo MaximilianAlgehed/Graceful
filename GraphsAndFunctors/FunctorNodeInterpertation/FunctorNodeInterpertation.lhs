@@ -32,5 +32,5 @@ However, for reasons that become clear when studying diagrams with feedback loop
 this interpertation is inadequate\footnote{See the set of derivations in the Type Node compendium}.
 An interpertation where $a$ and $b$ are associated with functors $A$ and $B$ is more
 desierable\footnote{See the derivations for cycles in this compendium}.
-In this diagram the functor $B$ is completely decided by $A$ and $F$ as $A\ \phi :: A\ X\rightarrow A\ F\ X$ which
+In this diagram the functor $B$ is completely decided by $A$ and $F$ as $A\ \phi :: A\ X\rightarrow A\ (F\ X)$ which
 gives $B = A\circ F$.

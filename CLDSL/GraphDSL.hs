@@ -4,7 +4,7 @@ import Data.Graph.Inductive hiding (mkNode)
 
 type Name = Node 
 
-data Sign = P | M | Q deriving (Ord, Eq, Show)
+data Sign = P | M | Z | Q deriving (Ord, Eq, Show)
 
 type GraphSyntax a = State (Name, Gr Name Name, Map Name Sign) a
 
