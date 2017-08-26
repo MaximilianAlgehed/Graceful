@@ -1,4 +1,4 @@
-Cycles in the Functor Node interperatation
+Cycles in the Functor Node Interpretation
 ==========================================
 
 Suppose we have the following diagram
@@ -67,10 +67,10 @@ And some example coalgebras
 > phi1 :: X -> F1 X
 > phi1 x = F1 [(x+1)/2, x, (x-1)*2]
 
-The simples value of type A x
+The simplest value of type A x
 
 > simpleA :: F1 X -> A X
-> simpleA = A . Id 
+> simpleA = A . Id
 
 > simpleB :: F0 X -> B X
 > simpleB = B . Id

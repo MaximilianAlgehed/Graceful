@@ -1,4 +1,4 @@
-Loops in the Functor Node interpertation
+Loops in the Functor Node interpretation
 ========================================
 
 \usetikzlibrary{graphs}
@@ -12,5 +12,5 @@ Loops in the Functor Node interpertation
 \end{figure}
 
 Where (as per usual) $\phi :: X \rightarrow F\ X$.
-In the functor node interpertation we get
+In the functor node interpretation we get
 (the rather gnarly) $A\ X = A\ (F\ X)$.
