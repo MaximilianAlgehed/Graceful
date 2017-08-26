@@ -1,4 +1,4 @@
-The Functor Node interpertation
+The Functor Node interpretation
 ===============================
 
 Suppose we have the following diagram
@@ -16,10 +16,10 @@ Suppose we have the following diagram
 \end{tikzpicture}
 \end{figure}
 
-What is notable here is that $c$ depends on two nodes $a$ and $b$. 
+What is notable here is that $c$ depends on two nodes $a$ and $b$.
 
 It is assumed we wish the $\phi$s to represent co-algebras of
-some functors $F_0$ and $F_1$. In accorance to our previous efforts
+some functors $F_0$ and $F_1$. In accordance to our previous efforts
 of modelling the impact of the nodes $a$ and $b$ on $c$ by lifted
 co-algebras we obtain the types
 
@@ -29,7 +29,7 @@ $B\ X = I\ X$
 
 $C\ X = A\ (F_0\ X) \otimes B\ (F_1\ X)$
 
-where $I$ denotes the identiy functor and $\otimes$ is some bi-functor, which gives us
+where $I$ denotes the identity functor and $\otimes$ is some bi-functor, which gives us
 
 $c\ X = F_0\ X \otimes F_1\ X$
 
